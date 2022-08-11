@@ -11,6 +11,6 @@
 	- Puis taper `scoop install symfony-cli` pour installer le CLI `symfony`
 
 ### Installation
-Après avoir cloné le projet, ouvrir le projet via Visual Studio Code par exemple et lancer un terminal, puis la commande `composer install` pour installer toutes les dépendances du projet.
+Après avoir cloné le projet, ouvrir le projet via Visual Studio Code par exemple et lancer un terminal, puis taper la commande `composer install` pour installer toutes les dépendances du projet.
 
 ### Administration
