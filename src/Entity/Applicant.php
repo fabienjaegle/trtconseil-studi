@@ -20,6 +20,9 @@ class Applicant
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userlink = null;
 
+    #[ORM\ManyToOne]
+    private ?User $consultant = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Applicant
     public function setUserlink(?User $userlink): self
     {
         $this->userlink = $userlink;
+
+        return $this;
+    }
+
+    public function getConsultant(): ?User
+    {
+        return $this->consultant;
+    }
+
+    public function setConsultant(?User $consultant): self
+    {
+        $this->consultant = $consultant;
 
         return $this;
     }
