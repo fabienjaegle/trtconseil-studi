@@ -5,18 +5,15 @@
 {% block body %}
     {{ include('navbar.html.twig') }}
     {{ form_start(registrationForm) }}
-
     <div class="container-fluid h-100">
         <div class="row justify-content-center align-items-center">
             <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <h1 class="mt-5 mb-5 text-center">Créer un compte</h1>
-                <p>Vous êtes ?</p>
-                <div class="btn-group" role="group">
-                    <input type="radio" class="btn-check" name="roles" id="btnradio1" value="['ROLE_CANDIDATE']" autocomplete="off" required>
-                    <label class="btn btn-outline-primary" for="btnradio1">Un candidat</label>
-
-                    <input type="radio" class="btn-check" name="roles" id="btnradio2" value="['ROLE_RECRUITER']" autocomplete="off" required>
-                    <label class="btn btn-outline-primary" for="btnradio2">Un recruteur</label>
+                <div>
+                Vous êtes ?
+                {{ form_row(registrationForm.role, {
+                    label:' '
+                }) }}
                 </div>
                 {{ form_row(registrationForm.lastname, {
                     label:'Prénom'

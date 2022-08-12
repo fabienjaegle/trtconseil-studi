@@ -18,10 +18,16 @@
             <div class="col-lg-6 mx-auto">
                 <p class="lead mb-4">TRT Conseil a mis en place un outil permettant à un plus grand nombre de recruteurs et de candidats de trouver un emploi.</p>
                 <p class="lead mb-4">Serveur, responsable de la restauration, chef cuisinier, etc. connectez-vous ou créez un compte dès maintenant afin d'être à l'écoute du marché et postuler à des miliers d'annonces dans votre secteur.</p>
+                {% if app.user == false %}
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                     <a class="btn btn-primary btn-lg px-4 gap-3" href="{{ path('app_login') }}">Se connecter</a>
                     <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_register') }}">S'enregister</a>
                 </div>
+                {% else %}
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard') }}">Tableau de bord</a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </main>
