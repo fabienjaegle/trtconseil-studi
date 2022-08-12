@@ -1,0 +1,14 @@
+{% extends 'header.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+{{ include('navbar.html.twig') }}
+
+<div class="container">
+    <h1 class="text-center mt-5">Mon espace</h1>
+    {% if app.user.roles == "ROLE_ADMIN" %}
+        <h3 class="mt-5">Gestion des consultants</h3>
+    {% endif %}
+</div>
+{% endblock %}

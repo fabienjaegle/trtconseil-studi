@@ -10,17 +10,23 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    #[Route(path: '/', name: 'app_root')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('home');
-        }
+        $lastUsername = "";
+        $error = "";
 
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+        if ($this->getUser()) {
+            if ($this->getUser()->isVerified()) {
+                return $this->redirectToRoute('app_home');
+
+                // get the login error if there is one
+                $error = $authenticationUtils->getLastAuthenticationError();
+
+                $lastUsername = $authenticationUtils->getLastUsername();
+            }
+            else
+                $error = "L'utilisateur n'est pas encore vérifié par un consultant. Connexion impossible pour le moment.";
+        }
 
         return $this->render('login/index.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
