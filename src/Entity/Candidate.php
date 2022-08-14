@@ -2,12 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ConsultantRepository;
-use Doctrine\DBAL\Types\Types;
+use App\Repository\CandidateRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ConsultantRepository::class)]
-class Consultant
+#[ORM\Entity(repositoryClass: CandidateRepository::class)]
+class Candidate
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,6 +27,15 @@ class Consultant
 
     #[ORM\Column(length: 50)]
     private ?string $lastname = null;
+
+    #[ORM\Column]
+    private ?string $cv = null;
+
+    #[ORM\Column]
+    private bool $isValidated = false;
+
+    #[ORM\Column(length: 180)]
+    private ?string $email = null;
 
     public function getId(): ?int
     {
@@ -90,6 +98,42 @@ class Consultant
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getCv(): ?string
+    {
+        return $this->cv;
+    }
+
+    public function setCv(string $cv): self
+    {
+        $this->cv = $cv;
+
+        return $this;
+    }
+
+    public function isValidated(): ?bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setIsValidated(bool $isValidated): self
+    {
+        $this->isValidated = $isValidated;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

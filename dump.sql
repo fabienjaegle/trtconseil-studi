@@ -1,2 +1,0 @@
-INSERT INTO "user" ("id", "username", "roles", "password", "firstname", "lastname", "email", "is_verified", "role") VALUES
-(1,	'admin', '["ROLE_ADMIN"]', '$2y$13$dqBFqJVrcRt0.flhyuCoWeCBOweueIks0GEE4jsVlKy8OsGmaqBFm',	'Administrateur', '', 'admin@trtconseil.com', '1', 'ROLE_ADMIN');

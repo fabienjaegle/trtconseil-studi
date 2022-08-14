@@ -13,83 +13,172 @@ class Recruiter
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $companyname = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $companyName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $companyAddress = null;
+
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $companyZipCode = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $companyCity = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $username = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $companyaddress = null;
+    private ?string $password = null;
 
-    #[ORM\Column(length: 5)]
-    private ?string $companyzipcode = null;
+    #[ORM\Column]
+    private bool $isValidated = false;
 
-    #[ORM\Column(length: 255)]
-    private ?string $companycity = null;
+    #[ORM\Column(length: 50)]
+    private ?string $firstname = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $userlink = null;
+    #[ORM\Column(length: 50)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 180)]
+    private ?string $email = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCompanyname(): ?string
+    public function getCompanyName(): ?string
     {
-        return $this->companyname;
+        return $this->companyName;
     }
 
-    public function setCompanyname(string $companyname): self
+    public function setCompanyName(string $companyName): self
     {
-        $this->companyname = $companyname;
+        $this->companyName = $companyName;
 
         return $this;
     }
 
-    public function getCompanyaddress(): ?string
+    public function getCompanyAddress(): ?string
     {
-        return $this->companyaddress;
+        return $this->companyAddress;
     }
 
-    public function setCompanyaddress(string $companyaddress): self
+    public function setCompanyAddress(?string $companyAddress): self
     {
-        $this->companyaddress = $companyaddress;
+        $this->companyAddress = $companyAddress;
 
         return $this;
     }
 
-    public function getCompanyzipcode(): ?string
+    public function getCompanyZipCode(): ?string
     {
-        return $this->companyzipcode;
+        return $this->companyZipCode;
     }
 
-    public function setCompanyzipcode(string $companyzipcode): self
+    public function setCompanyZipCode(?string $companyZipCode): self
     {
-        $this->companyzipcode = $companyzipcode;
+        $this->companyZipCode = $companyZipCode;
 
         return $this;
     }
 
-    public function getCompanycity(): ?string
+    public function getCompanyCity(): ?string
     {
-        return $this->companycity;
+        return $this->companyCity;
     }
 
-    public function setCompanycity(string $companycity): self
+    public function setCompanyCity(?string $companyCity): self
     {
-        $this->companycity = $companycity;
+        $this->companyCity = $companyCity;
 
         return $this;
     }
 
-    public function getUserlink(): ?User
+    public function getRoles(): array
     {
-        return $this->userlink;
+        return $this->roles;
     }
 
-    public function setUserlink(?User $userlink): self
+    public function setRoles(array $roles): self
     {
-        $this->userlink = $userlink;
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function isIsValidated(): ?bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setIsValidated(bool $isValidated): self
+    {
+        $this->isValidated = $isValidated;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

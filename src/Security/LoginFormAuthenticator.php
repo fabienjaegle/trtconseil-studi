@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class LoginAuthenticator extends AbstractLoginFormAuthenticator
+class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
@@ -47,16 +47,14 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         $user = $token->getUser();
-        $role = $user->getRole();
-        $isVerified = $user->isVerified();
-
-        if ($isVerified === false)
-            return new RedirectResponse($this->urlGenerator->generate('app_login'));
-
-        if ($role === "ROLE_ADMIN") {
-            return new RedirectResponse($this->urlGenerator->generate('app_admin'));
-        } else {
-            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard_admin'));
+        } else if (in_array("ROLE_CONSULTANT", $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard_consultant'));
+        } else if (in_array("ROLE_CANDIDATE", $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard_candidate'));
+        } else if (in_array("ROLE_RECRUITER", $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard_recruiter'));
         }
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
