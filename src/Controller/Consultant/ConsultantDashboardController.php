@@ -43,7 +43,7 @@ class ConsultantDashboardController extends AbstractController
     }
 
     #[Route('/dashboard/consultant/reject/{id}', name: 'app_dashboard_consultant_reject_candidate', methods: ['GET'], requirements: ['id' => '\d+'])]
-    public function reject(CandidateRepository $candidateRepository, int $id, EntityManagerInterface $entityManager): Response
+    public function reject(CandidateRepository $candidateRepository, RecruiterRepository $recruiterRepository, int $id, EntityManagerInterface $entityManager): Response
     {
         $candidate = $candidateRepository->find($id);
 
@@ -56,6 +56,9 @@ class ConsultantDashboardController extends AbstractController
             'Le compte a été rejeté.'
         );
 
-        return $this->render('consultant/index.html.twig');
+        return $this->render('consultant/index.html.twig', [
+            'candidates' => $candidateRepository->findBy(['isValidated' => null]),
+            'recruiters' => $recruiterRepository->findBy(['isValidated' => null])
+        ]);
     }
 }
