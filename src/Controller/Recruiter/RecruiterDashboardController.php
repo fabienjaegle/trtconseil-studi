@@ -3,8 +3,11 @@
 namespace App\Controller\Recruiter;
 
 use App\Entity\Recruiter;
+use App\Entity\JobOffer;
 use App\Form\RecruiterType;
+use App\Form\JobOfferType;
 use App\Repository\RecruiterRepository;
+use App\Repository\JobOfferRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,12 +26,14 @@ class RecruiterDashboardController extends AbstractController
     }
 
     #[Route('/dashboard/recruiter', name: 'app_dashboard_recruiter_index')]
-    public function index(): Response
+    public function index(JobOfferRepository $jobofferRepository): Response
     {
         $user = $this->security->getUser();
+        $joboffers = $jobofferRepository->findBy(['recruiter' => $user]);
 
         return $this->render('recruiter/index.html.twig', [
-            'recruiter' => $user
+            'recruiter' => $user,
+            'joboffers' => $joboffers
         ]);
     }
 
@@ -49,6 +54,37 @@ class RecruiterDashboardController extends AbstractController
 
         return $this->renderForm('recruiter/edit.html.twig', [
             'recruiter' => $recruiter,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/dashboard/recruiter/new', name: 'app_dashboard_recruiter_new_joboffer', methods: ['GET', 'POST'])]
+    public function new(Request $request, JobOfferRepository $jobofferRepository, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    {
+        $joboffer = new JobOffer();
+        $recruiter = $this->security->getUser();
+        $form = $this->createForm(JobOfferType::class, $joboffer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $joboffer->setRecruiter($recruiter);
+
+            $jobofferRepository->add($joboffer, true);
+ 
+            $entityManager->persist($joboffer);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'annonce a été créée avec succès. Un consultant doit l\'approuver pour qu\'elle paraisse en ligne.'
+            );
+
+            return $this->redirectToRoute('app_dashboard_recruiter_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('joboffer/new.html.twig', [
+            'joboffer' => $joboffer,
             'form' => $form,
         ]);
     }
