@@ -9,6 +9,9 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
                     <h1 class="mt-5 mb-5 text-center">Créer un compte admin</h1>
+                    {{ form_row(registrationForm.email, {
+                        label: 'Email'
+                    }) }}
                     {{ form_row(registrationForm.username, {
                         label: 'Nom d\'utilisateur'
                     }) }}
