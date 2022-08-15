@@ -5,6 +5,7 @@ namespace App\Controller\Candidate;
 use App\Entity\Consultant;
 use App\Form\CandidateType;
 use App\Repository\CandidateRepository;
+use App\Repository\JobOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,12 +24,14 @@ class CandidateDashboardController extends AbstractController
     }
 
     #[Route('/dashboard/candidate', name: 'app_dashboard_candidate_index')]
-    public function index(): Response
+    public function index(JobOfferRepository $jobofferRepository): Response
     {
         $user = $this->security->getUser();
+        $joboffers = $jobofferRepository->findBy(['isValidated' => true]);
 
         return $this->render('candidate/index.html.twig', [
-            'candidate' => $user
+            'candidate' => $user,
+            'joboffers' => $joboffers
         ]);
     }
 

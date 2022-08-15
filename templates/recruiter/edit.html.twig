@@ -1,6 +1,6 @@
 {% extends 'header.html.twig' %}
 
-{% block title %}Modifier un candidat{% endblock %}
+{% block title %}Modifier un recruteur{% endblock %}
 
 {% block body %}
 {{ include('navbar.html.twig') }}
@@ -13,8 +13,8 @@
     </div>
 
     <div class="m-5">
-        {{ include('candidate/_form.html.twig', {'button_label': 'Modifier'}) }}
+        {{ include('recruiter/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-        <a href="{{ path('app_dashboard_candidate_index') }}" role="button" class="btn btn-outline-success mt-2">Retour au tableau de bord</a>
+        <a href="{{ path('app_dashboard_recruiter_index') }}" role="button" class="btn btn-outline-success mt-2">Retour au tableau de bord</a>
     </div>
 {% endblock %}

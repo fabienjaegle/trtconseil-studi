@@ -1,1 +1,45 @@
-index recruiter
+{% extends 'header.html.twig' %}
+
+{% block title %}Recruteur{% endblock %}
+
+{% block body %}
+{{ include('navbar.html.twig') }}
+
+<div class="container">
+    <h1 class="text-center mt-5">Tableau de bord recruteur</h1>
+</div>
+<div class="m-5">
+    <h3>Mes informations</h3>
+    <table class="table table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Nom de la société</th>
+                <td>{{ recruiter.companyName }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ recruiter.companyAddress }}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{ recruiter.companyZipCode }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ recruiter.companyCity }}</td>
+            </tr>
+            <tr>
+                <th>Adresse mail</th>
+                <td>{{ recruiter.email }}</td>
+            </tr>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <td>{{ recruiter.username }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ms-5">
+    <a href="{{ path('app_dashboard_recruiter_edit', {'id': recruiter.id}) }}" class="btn btn-outline-primary mb-2">Modifier</a>
+</div>
+{% endblock %}
