@@ -3,6 +3,8 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Entity\Candidate;
+use App\Entity\Recruiter;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
@@ -13,7 +15,7 @@ class UserChecker implements UserCheckerInterface
     public function checkPreAuth(UserInterface $user): void
     {
         // Check if the user is a candidate or a recruiter to test the validation function.
-        if (!$user instanceof Candidate || !$user instanceof Recruiter) {
+        if (!$user instanceof Candidate && !$user instanceof Recruiter) {
             return;
         }
 
