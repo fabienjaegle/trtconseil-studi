@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+    {{ form_row(form.firstname, {
+        label: 'Prénom'
+    }) }}
+    {{ form_row(form.lastname, {
+        label: 'Nom'
+    }) }}
+    {{ form_row(form.email, {
+        label: 'Email'
+    }) }}
+    {{ form_row(form.username, {
+        label: 'Nom d\'utilisateur'
+    }) }}
+    {{ form_row(form.password, {
+        label: 'Mot de passe'
+    }) }}
+    <button class="btn btn-outline-primary ml-5 mt-2">{{ button_label|default('Enregistrer') }}</button>
+    
+{{ form_end(form) }}

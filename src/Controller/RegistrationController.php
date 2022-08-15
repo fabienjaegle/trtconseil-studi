@@ -50,7 +50,7 @@ class RegistrationController extends AbstractController
                 'Votre compte a bien été crée.'
             );
 
-            return $this->redirectToRoute('app_dashboard_admin');
+            return $this->redirectToRoute('app_dashboard_admin_index');
         }
 
         return $this->render('register/admin/index.html.twig', [

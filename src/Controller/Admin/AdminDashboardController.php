@@ -14,7 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdminDashboardController extends AbstractController
 {
-    #[Route('/dashboard/admin', name: 'app_dashboard_admin')]
+    #[Route('/dashboard/admin', name: 'app_dashboard_admin_index')]
     public function index(ConsultantRepository $consultantRepository): Response
     {
         return $this->render('admin/index.html.twig', [
@@ -22,7 +22,7 @@ class AdminDashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard/admin/new', name: 'app_create_consultant_new', methods: ['GET', 'POST'])]
+    #[Route('/dashboard/admin/new', name: 'app_dashboard_admin_new_consultant', methods: ['GET', 'POST'])]
     public function new(Request $request, ConsultantRepository $consultantRepository, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $consultant = new Consultant();
@@ -45,7 +45,7 @@ class AdminDashboardController extends AbstractController
             $entityManager->persist($consultant);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_dashboard_admin', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/new.html.twig', [
@@ -54,7 +54,7 @@ class AdminDashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard/admin/consultant/{id}', name: 'display_consultant', methods: ['GET'], requirements: ['id' => '\d+'])]
+    #[Route('/dashboard/admin/consultant/{id}', name: 'app_dashboard_admin_display_consultant', methods: ['GET'], requirements: ['id' => '\d+'])]
     public function show(ConsultantRepository $consultantRepository, int $id): Response
     {
         $consultant = $consultantRepository->find($id);
@@ -64,7 +64,7 @@ class AdminDashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard/admin/consultant/{id}/edit', name: 'edit_consultant', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    #[Route('/dashboard/admin/consultant/{id}/edit', name: 'app_dashboard_admin_edit_consultant', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function edit(Request $request, int $id, ConsultantRepository $consultantRepository): Response
     {
         $consultant = $consultantRepository->find($id);
@@ -75,7 +75,7 @@ class AdminDashboardController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $consultantRepository->add($consultant, true);
 
-            return $this->redirectToRoute('app_dashboard_admin', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/edit.html.twig', [
@@ -91,6 +91,6 @@ class AdminDashboardController extends AbstractController
             $consultantRepository->remove($consultant, true);
         }
 
-        return $this->redirectToRoute('app_dashboard_admin', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_dashboard_admin_index', [], Response::HTTP_SEE_OTHER);
     }
 }
