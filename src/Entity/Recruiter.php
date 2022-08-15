@@ -22,7 +22,7 @@ class Recruiter extends User
     private ?string $companyCity = null;
 
     #[ORM\Column]
-    private bool $isValidated = false;
+    private ?bool $isValidated = null;
 
     public function getCompanyName(): ?string
     {
@@ -68,6 +68,18 @@ class Recruiter extends User
     public function setCompanyCity(?string $companyCity): self
     {
         $this->companyCity = $companyCity;
+
+        return $this;
+    }
+
+    public function isValidated(): ?bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setIsValidated(bool $isValidated): self
+    {
+        $this->isValidated = $isValidated;
 
         return $this;
     }

@@ -4,8 +4,25 @@
 
 {% block body %}
 {{ include('navbar.html.twig') }}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-error text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
 <div class="container">
-    <h1 class="text-center mt-5">Mon espace consultant</h1>
+    <h1 class="text-center mt-5">Tableau de bord consultant</h1>
 
     <section>
         <h3>Gérer les recruteurs</h3>
