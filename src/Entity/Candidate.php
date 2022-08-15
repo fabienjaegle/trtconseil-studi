@@ -9,21 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CandidateRepository::class)]
 class Candidate extends User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column]
     private ?string $cv = null;
 
     #[ORM\Column]
     private bool $isValidated = false;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getCv(): ?string
     {

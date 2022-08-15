@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
             {% if app.user %}
-                <p class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</p>
+                <p class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">Bonjour, {{ app.user.username }}</p>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
