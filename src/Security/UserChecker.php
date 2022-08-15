@@ -13,7 +13,7 @@ class UserChecker implements UserCheckerInterface
     public function checkPreAuth(UserInterface $user): void
     {
         // Check if the user is a candidate or a recruiter to test the validation function.
-        if (!$user instanceof User) {
+        if (!$user instanceof Candidate || !$user instanceof Recruiter) {
             return;
         }
 
