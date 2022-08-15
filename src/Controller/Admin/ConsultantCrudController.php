@@ -16,6 +16,13 @@ class ConsultantCrudController extends AbstractCrudController
         return Consultant::class;
     }
 
+    public function createEntity(string $entityFqcn)
+    {
+        $consultant = new Consultant();
+        $consultant->setRoles(['ROLE_CONSULTANT']);
+
+        return $consultant;
+    }
 
     public function configureFields(string $pageName): iterable
     {
