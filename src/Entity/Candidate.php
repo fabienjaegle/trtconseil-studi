@@ -13,7 +13,7 @@ class Candidate extends User
     private ?string $cv = null;
 
     #[ORM\Column]
-    private bool $isValidated = false;
+    private ?bool $isValidated = null;
 
     public function getCv(): ?string
     {

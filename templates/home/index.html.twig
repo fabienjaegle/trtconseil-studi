@@ -24,9 +24,20 @@
                     <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_register') }}">S'enregister</a>
                 </div>
                 {% else %}
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                    <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard') }}">Tableau de bord</a>
-                </div>
+                    
+                        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard_admin_index') }}">Tableau de bord</a>
+                            {% elseif is_granted('ROLE_CONSULTANT') %}
+                                <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard_consultant_index') }}">Tableau de bord</a>
+                            {% elseif is_granted('ROLE_CANDIDATE') %}
+                                <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard_candidate_index') }}">Tableau de bord</a>
+                            {% elseif is_granted('ROLE_RECRUITER') %}
+                                <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard_recruiter_index') }}">Tableau de bord</a>
+                            {% endif %}
+                        </div>
+                    
+                    
                 {% endif %}
             </div>
         </div>
