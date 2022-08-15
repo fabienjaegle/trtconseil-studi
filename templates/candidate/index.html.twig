@@ -1,1 +1,42 @@
-index candidate
+{% extends 'header.html.twig' %}
+
+{% block title %}Candidat{% endblock %}
+
+{% block body %}
+{{ include('navbar.html.twig') }}
+
+<div class="container">
+    <h1 class="text-center mt-5">Tableau de bord candidat</h1>
+</div>
+<div class="m-5">
+    <h3>Mes informations</h3>
+    <table class="table table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ candidate.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ candidate.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Adresse mail</th>
+                <td>{{ candidate.email }}</td>
+            </tr>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <td>{{ candidate.username }}</td>
+            </tr>
+            <tr>
+                <th>CV</th>
+                <td>{{ candidate.cv }}</td>
+                <td><a href="{{ asset('uploads/cv/' ~ candidate.cv) }}">Voir le CV (PDF)</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ms-5">
+    <a href="{{ path('app_dashboard_candidate_edit', {'id': candidate.id}) }}" class="btn btn-outline-primary mb-2">Modifier</a>
+</div>
+{% endblock %}
