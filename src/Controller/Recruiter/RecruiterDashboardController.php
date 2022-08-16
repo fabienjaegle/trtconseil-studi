@@ -8,6 +8,7 @@ use App\Form\RecruiterType;
 use App\Form\JobOfferType;
 use App\Repository\RecruiterRepository;
 use App\Repository\JobOfferRepository;
+use App\Repository\ApplicationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,6 +87,17 @@ class RecruiterDashboardController extends AbstractController
         return $this->renderForm('joboffer/new.html.twig', [
             'joboffer' => $joboffer,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/dashboard/recruiter/offer/{id}/show/candidates', name: 'app_dashboard_recruiter_show_candidates', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function showCandidates(JobOfferRepository $jobofferRepository, ApplicationRepository $applicationRepository, int $id, RecruiterRepository $recruiterRepository): Response
+    {
+        $jobOffer = $jobofferRepository->find($id);
+        $applications = $applicationRepository->findByJobOffer($jobOffer);
+
+        return $this->renderForm('recruiter/show_candidates.html.twig', [
+            'applications' => $applications
         ]);
     }
 }

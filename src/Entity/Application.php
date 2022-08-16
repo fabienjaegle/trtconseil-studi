@@ -29,7 +29,7 @@ class Application
         return $this->id;
     }
 
-    public function isIsValidated(): ?bool
+    public function isValidated(): ?bool
     {
         return $this->isValidated;
     }

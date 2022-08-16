@@ -47,7 +47,9 @@
             <tr>
                 <th>CV</th>
                 <td>{{ candidate.cv }}</td>
+                {% if candidate.cv %}
                 <td><a href="{{ asset('uploads/cv/' ~ candidate.cv) }}">Voir le CV (PDF)</a></td>
+                {% endif %}
             </tr>
         </tbody>
     </table>
