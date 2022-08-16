@@ -77,7 +77,17 @@
                 <td>{{ offer.schedules }}</td>
                 <td>{{ offer.salary }}</td>
                 <td>
+                    {% set alreadyApplied = false %}
+                    {% for app in offer.applications %}
+                        {% if app.jobOffer.id == offer.id and app.candidate.id == candidate.id %}
+                            {% set alreadyApplied = true %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if alreadyApplied %}
+                    Déjà postulé
+                    {% else %}
                     <a href="{{ path('app_dashboard_candidate_apply', {'id': offer.id}) }}">Postuler</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
