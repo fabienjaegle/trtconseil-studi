@@ -3,9 +3,11 @@
 namespace App\Controller\Candidate;
 
 use App\Entity\Consultant;
+use App\Entity\Application;
 use App\Form\CandidateType;
 use App\Repository\CandidateRepository;
 use App\Repository\JobOfferRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,5 +86,26 @@ class CandidateDashboardController extends AbstractController
             'candidate' => $candidate,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/dashboard/candidate/offer/{id}/apply', name: 'app_dashboard_candidate_apply', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function applyOffer(JobOfferRepository $jobofferRepository, int $id, EntityManagerInterface $entityManager): Response
+    {
+        $candidate = $this->security->getUser();
+        $joboffer = $jobofferRepository->find($id);
+
+        $application = new Application();
+        $joboffer->addApplication($application);
+        $candidate->addApplication($application);
+
+        $entityManager->persist($application);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'Vous avez postulé pour cette annonce. Un consultant traitera prochainement votre demande.'
+        );
+
+        return $this->redirectToRoute('app_dashboard_candidate_index');
     }
 }
