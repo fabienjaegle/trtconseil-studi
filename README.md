@@ -24,3 +24,7 @@ Effectuer les migrations via les commandes `php bin/console make:migration` et `
 
 Aller à l'adresse `https://127.0.0.1:8000/register/admin` pour créer un administrateur.
 P.S : cette route existe pour les besoins du TP. En production, la route devra être supprimée pour des questions de sécurité.
+
+### Déploiement
+
+Ce site a été déployé via Heroku à l'adresse suivante : `https://trtconseilstudi.herokuapp.com/`
