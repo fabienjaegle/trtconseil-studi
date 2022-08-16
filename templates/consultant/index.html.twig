@@ -78,6 +78,35 @@
     </section>
     <section>
         <h3>Gérer les annonces</h3>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Intitulé</th>
+                    <th>Lieu</th>
+                    <th>Horaires</th>
+                    <th>Salaire</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for offer in joboffers %}
+                <tr>
+                    <td>{{ offer.title }}</td>
+                    <td>{{ offer.workplace }}</td>
+                    <td>{{ offer.schedules }}</td>
+                    <td>{{ offer.salary }}</td>
+                    <td>
+                        <a href="{{ path('app_dashboard_consultant_approuve_offer', {'id': offer.id}) }}">Approuver</a>
+                        <a href="{{ path('app_dashboard_consultant_reject_offer', {'id': offer.id}) }}">Rejeter</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Aucune annonce</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </section>
     <section>
         <h3>Gérer les candidatures</h3>

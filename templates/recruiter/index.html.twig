@@ -59,7 +59,7 @@
     <a href="{{ path('app_dashboard_recruiter_edit', {'id': recruiter.id}) }}" class="btn btn-outline-primary mb-2">Modifier</a>
 </div>
 <div class="m-5">
-    <h3>Liste des annonces publiées</h3>
+    <h3>Liste des annonces créées</h3>
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -67,6 +67,7 @@
                 <th>Lieu</th>
                 <th>Horaires</th>
                 <th>Salaire</th>
+                <th>Etat</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -77,6 +78,17 @@
                 <td>{{ offer.workplace }}</td>
                 <td>{{ offer.schedules }}</td>
                 <td>{{ offer.salary }}</td>
+                <td>
+                    {% if offer.isvalidated == null %}
+                        En cours d'approbation
+                    {% elseif offer.isvalidated == true %}
+                        En ligne
+                    {% elseif offer.isvalidated == false %}
+                        Rejetée
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                </td>
                 <td>
                     {#<a href="{{ path('app_dashboard_consultant_approuve_candidate', {'id': candidate.id}) }}">Approuver</a>
                     <a href="{{ path('app_dashboard_consultant_reject_candidate', {'id': candidate.id}) }}">Rejeter</a>#}
