@@ -1,0 +1,101 @@
+{% extends 'header.html.twig' %}
+
+{% block title %}Candidat{% endblock %}
+
+{% block body %}
+{{ include('navbar.html.twig') }}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+<div class="container">
+    <h1 class="text-center mt-5">Tableau de bord candidat</h1>
+</div>
+<div class="m-5">
+    <h3>Mes informations</h3>
+    <table class="table table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ candidate.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ candidate.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Adresse mail</th>
+                <td>{{ candidate.email }}</td>
+            </tr>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <td>{{ candidate.username }}</td>
+            </tr>
+            <tr>
+                <th>CV</th>
+                <td>{{ candidate.cv }}</td>
+                {% if candidate.cv %}
+                <td><a href="{{ asset('uploads/cv/' ~ candidate.cv) }}">Voir le CV (PDF)</a></td>
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ms-5">
+    <a href="{{ path('app_dashboard_candidate_edit', {'id': candidate.id}) }}" class="btn btn-outline-primary mb-2">Modifier</a>
+</div>
+<div class="m-5">
+    <h3>Liste des annonces disponibles</h3>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Intitulé</th>
+                <th>Lieu</th>
+                <th>Horaires</th>
+                <th>Salaire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offer in joboffers %}
+            <tr>
+                <td>{{ offer.title }}</td>
+                <td>{{ offer.workplace }}</td>
+                <td>{{ offer.schedules }}</td>
+                <td>{{ offer.salary }}</td>
+                <td>
+                    {% set alreadyApplied = false %}
+                    {% for app in offer.applications %}
+                        {% if app.jobOffer.id == offer.id and app.candidate.id == candidate.id %}
+                            {% set alreadyApplied = true %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if alreadyApplied %}
+                    Déjà postulé
+                    {% else %}
+                    <a href="{{ path('app_dashboard_candidate_apply', {'id': offer.id}) }}">Postuler</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" class="text-center">Aucune annonce</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

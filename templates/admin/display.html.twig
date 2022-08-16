@@ -1,0 +1,52 @@
+{% extends 'header.html.twig' %}
+
+{% block title %}Consultant{% endblock %}
+
+{% block body %}
+{{ include('navbar.html.twig') }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header text-center mb-5 mt-2">Consultant</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-5">
+        <table class="table table-hover table-striped">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ consultant.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom d'utilisateur</th>
+                    <td>{{ consultant.username }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse mail</th>
+                    <td>{{ consultant.email }}</td>
+                </tr>
+                <tr>
+                    <th>Mot de passe</th>
+                    <td>{{ consultant.password }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ consultant.lastname }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ consultant.firstname }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="ms-5">
+        <a href="{{ path('app_dashboard_admin_edit_consultant', {'id': consultant.id}) }}" class="btn btn-outline-primary mb-2">Modifier</a>
+        <br>
+        <a href="{{ path('app_dashboard_admin_index') }}" class="btn btn-outline-success">Retour à la liste</a>
+
+        {{ include('admin/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

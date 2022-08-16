@@ -1,0 +1,56 @@
+{% extends 'header.html.twig' %}
+
+{% block title %}TRT Conseil{% endblock %}
+
+{% block body %}
+    {{ include('navbar.html.twig') }}
+
+    {# Alert message after registration #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <main>
+        <div class="px-4 py-5 my-5 text-center">
+            <h1 class="display-5 fw-bold">Votre emploi commence ici</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">TRT Conseil a mis en place un outil permettant à un plus grand nombre de recruteurs et de candidats de trouver un emploi.</p>
+                <p class="lead mb-4">Serveur, responsable de la restauration, chef cuisinier, etc. connectez-vous ou créez un compte dès maintenant afin d'être à l'écoute du marché et postuler à des miliers d'annonces dans votre secteur.</p>
+                {% if app.user == false %}
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a class="btn btn-primary btn-lg px-4 gap-3" href="{{ path('app_login') }}">Se connecter</a>
+                    <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_register') }}">S'enregister</a>
+                </div>
+                {% else %}         
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard_admin_index') }}">Tableau de bord</a>
+                        {% elseif is_granted('ROLE_CONSULTANT') %}
+                            <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard_consultant_index') }}">Tableau de bord</a>
+                        {% elseif is_granted('ROLE_CANDIDATE') %}
+                            <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard_candidate_index') }}">Tableau de bord</a>
+                        {% elseif is_granted('ROLE_RECRUITER') %}
+                            <a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_dashboard_recruiter_index') }}">Tableau de bord</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+    
+    {{ include('footer.html.twig') }}
+{% endblock %}

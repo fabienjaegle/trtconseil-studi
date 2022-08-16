@@ -1,0 +1,108 @@
+{% extends 'header.html.twig' %}
+
+{% block title %}Recruteur{% endblock %}
+
+{% block body %}
+{{ include('navbar.html.twig') }}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger text-center mt-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+<div class="container">
+    <h1 class="text-center mt-5">Tableau de bord recruteur</h1>
+</div>
+<div class="m-5">
+    <h3>Mes informations</h3>
+    <table class="table table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Nom de la société</th>
+                <td>{{ recruiter.companyName }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ recruiter.companyAddress }}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{ recruiter.companyZipCode }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ recruiter.companyCity }}</td>
+            </tr>
+            <tr>
+                <th>Adresse mail</th>
+                <td>{{ recruiter.email }}</td>
+            </tr>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <td>{{ recruiter.username }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ms-5">
+    <a href="{{ path('app_dashboard_recruiter_edit', {'id': recruiter.id}) }}" class="btn btn-outline-primary mb-2">Modifier</a>
+</div>
+<div class="m-5">
+    <h3>Liste des annonces créées</h3>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Intitulé</th>
+                <th>Lieu</th>
+                <th>Horaires</th>
+                <th>Salaire</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offer in joboffers %}
+            <tr>
+                <td>{{ offer.title }}</td>
+                <td>{{ offer.workplace }}</td>
+                <td>{{ offer.schedules }}</td>
+                <td>{{ offer.salary }}</td>
+                <td>
+                    {% if offer.isvalidated == null %}
+                        En cours d'approbation
+                    {% elseif offer.isvalidated == true %}
+                        En ligne
+                    {% elseif offer.isvalidated == false %}
+                        Rejetée
+                    {% else %}
+                        Inconnu
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_dashboard_recruiter_show_candidates', {'id': offer.id}) }}">Liste des candidats</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" class="text-center">Aucune annonce</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="m-5">
+        <a href="{{ path('app_dashboard_recruiter_new_joboffer') }}" class="btn btn-outline-primary">Créer une nouvelle annonce</a>
+    </div>
+</div>
+
+{% endblock %}

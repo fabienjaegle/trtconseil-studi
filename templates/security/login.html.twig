@@ -1,0 +1,29 @@
+{% extends 'header.html.twig' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+{{ include('navbar.html.twig') }}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="container-fluid h-100">
+        <div class="row justify-content-center align-items-center">
+            <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <h1 class="mt-5 mb-5 text-center">Se connecter</h1>
+                <label for="inputUsername" class="mt-2 mb-2">Utilisateur</label>
+                <input type="username" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+                <label for="inputPassword" class="mt-4 mb-2">Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-primary mt-4 mb-5" type="submit">Connexion</button>
+                <p>Ou <a href="{{ path('app_register') }}">créer un compte</a><p>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

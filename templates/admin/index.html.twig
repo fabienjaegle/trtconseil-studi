@@ -1,0 +1,49 @@
+{% extends 'header.html.twig' %}
+
+{% block title %}Liste des consultants{% endblock %}
+
+{% block body %}
+{{ include('navbar.html.twig') }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="text-center mb-5 mt-2">Tableau de bord administrateur</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-5">
+        <h3>Liste des consultants</h3>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for consultant in consultants %}
+                <tr>
+                    <td>{{ consultant.firstname }}</td>
+                    <td>{{ consultant.lastname }}</td>
+                    <td>{{ consultant.username }}</td>
+                    <td>
+                        <a href="{{ path('app_dashboard_admin_display_consultant', {'id': consultant.id}) }}">Voir</a>
+                        <a href="{{ path('app_dashboard_admin_edit_consultant', {'id': consultant.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">Aucun consultant</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="m-5">
+        <a href="{{ path('app_dashboard_admin_new_consultant') }}" class="btn btn-outline-primary">Créer un nouveau consultant</a>
+    </div>
+{% endblock %}

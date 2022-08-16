@@ -1,0 +1,27 @@
+{% extends 'header.html.twig' %}
+
+{% block title %}Création d'un compte admin{% endblock %}
+
+{% block body %}
+    {{ include('navbar.html.twig') }}
+    {{ form_start(registrationForm) }}
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center align-items-center">
+                <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                    <h1 class="mt-5 mb-5 text-center">Créer un compte admin</h1>
+                    {{ form_row(registrationForm.email, {
+                        label: 'Email'
+                    }) }}
+                    {{ form_row(registrationForm.username, {
+                        label: 'Nom d\'utilisateur'
+                    }) }}
+                    {{ form_row(registrationForm.password, {
+                        label: 'Mot de passe'
+                    }) }}
+
+                    <button type="submit" class="btn btn-primary mt-2">Créer un compte</button>
+                </div>
+            </div>
+        </div>
+    {{ form_end(registrationForm) }}
+{% endblock %}
